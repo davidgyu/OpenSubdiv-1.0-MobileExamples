@@ -1,0 +1,233 @@
+<!DOCTYPE html>  <html> <head>   <title>shader.glsl</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               shader.glsl             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <pre><code>Copyright (C) Pixar. All rights reserved.
+
+This license governs use of the accompanying software. If you
+use the software, you accept this license. If you do not accept
+the license, do not use the software.
+
+1. Definitions
+The terms "reproduce," "reproduction," "derivative works," and
+"distribution" have the same meaning here as under U.S.
+copyright law.  A "contribution" is the original software, or
+any additions or changes to the software.
+A "contributor" is any person or entity that distributes its
+contribution under this license.
+"Licensed patents" are a contributor's patent claims that read
+directly on its contribution.
+
+2. Grant of Rights
+(A) Copyright Grant- Subject to the terms of this license,
+including the license conditions and limitations in section 3,
+each contributor grants you a non-exclusive, worldwide,
+royalty-free copyright license to reproduce its contribution,
+prepare derivative works of its contribution, and distribute
+its contribution or any derivative works that you create.
+(B) Patent Grant- Subject to the terms of this license,
+including the license conditions and limitations in section 3,
+each contributor grants you a non-exclusive, worldwide,
+royalty-free license under its licensed patents to make, have
+made, use, sell, offer for sale, import, and/or otherwise
+dispose of its contribution in the software or derivative works
+of the contribution in the software.
+
+3. Conditions and Limitations
+(A) No Trademark License- This license does not grant you
+rights to use any contributor's name, logo, or trademarks.
+(B) If you bring a patent claim against any contributor over
+patents that you claim are infringed by the software, your
+patent license from such contributor to the software ends
+automatically.
+(C) If you distribute any portion of the software, you must
+retain all copyright, patent, trademark, and attribution
+notices that are present in the software.
+(D) If you distribute any portion of the software in source
+code form, you may do so only under this license by including a
+complete copy of this license with your distribution. If you
+distribute any portion of the software in compiled or object
+code form, you may only do so under a license that complies
+with this license.
+(E) The software is licensed "as-is." You bear the risk of
+using it. The contributors give no express warranties,
+guarantees or conditions. You may have additional consumer
+rights under your local laws which this license cannot change.
+To the extent permitted under your local laws, the contributors
+exclude the implied warranties of merchantability, fitness for
+a particular purpose and non-infringement.
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="cp">#version 400</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <hr />
+
+<h2>Vertex Shader</h2>             </td>             <td class="code">               <div class="highlight"><pre><span class="cp">#ifdef VERTEX_SHADER</span>
+
+<span class="n">layout</span> <span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="mo">0</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">position</span><span class="p">;</span>
+<span class="n">layout</span> <span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">normal</span><span class="p">;</span>
+
+<span class="k">out</span> <span class="k">vec3</span> <span class="n">vPosition</span><span class="p">;</span>
+<span class="k">out</span> <span class="k">vec3</span> <span class="n">vNormal</span><span class="p">;</span>
+<span class="k">out</span> <span class="k">vec4</span> <span class="n">vColor</span><span class="p">;</span>
+
+<span class="k">void</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">vPosition</span> <span class="o">=</span> <span class="n">position</span><span class="p">;</span>
+    <span class="n">vNormal</span> <span class="o">=</span> <span class="n">normal</span><span class="p">;</span>
+    <span class="n">vColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#endif</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <hr />
+
+<h2>Geometry Shader</h2>             </td>             <td class="code">               <div class="highlight"><pre><span class="cp">#ifdef GEOMETRY_SHADER</span>
+
+<span class="cp">#ifdef PRIM_QUAD</span>
+
+<span class="n">layout</span><span class="p">(</span><span class="n">lines_adjacency</span><span class="p">)</span> <span class="k">in</span><span class="p">;</span>
+
+<span class="cp">#ifdef GEOMETRY_OUT_FILL</span>
+<span class="n">layout</span><span class="p">(</span><span class="n">triangle_strip</span><span class="p">,</span> <span class="n">max_vertices</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="k">out</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef GEOMETRY_OUT_LINE</span>
+<span class="n">layout</span><span class="p">(</span><span class="n">line_strip</span><span class="p">,</span> <span class="n">max_vertices</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="k">out</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+<span class="k">in</span> <span class="k">vec3</span> <span class="n">vPosition</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="k">in</span> <span class="k">vec3</span> <span class="n">vNormal</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+
+<span class="cp">#else // PRIM_TRI</span>
+
+<span class="n">layout</span><span class="p">(</span><span class="n">triangles</span><span class="p">)</span> <span class="k">in</span><span class="p">;</span>
+
+<span class="cp">#ifdef GEOMETRY_OUT_FILL</span>
+<span class="n">layout</span><span class="p">(</span><span class="n">triangle_strip</span><span class="p">,</span> <span class="n">max_vertices</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="k">out</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef GEOMETRY_OUT_LINE</span>
+<span class="n">layout</span><span class="p">(</span><span class="n">line_strip</span><span class="p">,</span> <span class="n">max_vertices</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="k">out</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+<span class="k">in</span> <span class="k">vec3</span> <span class="n">vPosition</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="k">in</span> <span class="k">vec3</span> <span class="n">vNormal</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
+<span class="cp">#endif // PRIM_TRI/QUAD</span>
+
+
+<span class="k">uniform</span> <span class="k">mat4</span> <span class="n">objectToClipMatrix</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="k">mat4</span> <span class="n">objectToEyeMatrix</span><span class="p">;</span>
+
+<span class="n">flat</span> <span class="k">out</span> <span class="k">vec3</span> <span class="n">gFacetNormal</span><span class="p">;</span>
+<span class="k">out</span> <span class="k">vec3</span> <span class="n">Peye</span><span class="p">;</span>
+<span class="k">out</span> <span class="k">vec3</span> <span class="n">Neye</span><span class="p">;</span>
+<span class="k">out</span> <span class="k">vec4</span> <span class="n">Cout</span><span class="p">;</span>
+
+<span class="k">void</span> <span class="n">emit</span><span class="p">(</span><span class="k">int</span> <span class="n">index</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Peye</span> <span class="o">=</span> <span class="n">vPosition</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+    <span class="n">gl_Position</span> <span class="o">=</span> <span class="n">objectToClipMatrix</span> <span class="o">*</span> <span class="k">vec4</span><span class="p">(</span><span class="n">vPosition</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">Neye</span> <span class="o">=</span> <span class="p">(</span><span class="n">objectToEyeMatrix</span> <span class="o">*</span> <span class="k">vec4</span><span class="p">(</span><span class="n">vNormal</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="mo">0</span><span class="p">)).</span><span class="n">xyz</span><span class="p">;</span>
+    <span class="n">EmitVertex</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">void</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">gl_PrimitiveID</span> <span class="o">=</span> <span class="n">gl_PrimitiveIDIn</span><span class="p">;</span>
+    
+<span class="cp">#ifdef PRIM_QUAD</span>
+<span class="cp">#ifdef GEOMETRY_OUT_FILL</span>
+    <span class="k">vec3</span> <span class="n">A</span> <span class="o">=</span> <span class="n">vPosition</span><span class="p">[</span><span class="mo">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">vPosition</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">vec3</span> <span class="n">B</span> <span class="o">=</span> <span class="n">vPosition</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">vPosition</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">vec3</span> <span class="n">C</span> <span class="o">=</span> <span class="n">vPosition</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">vPosition</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+    <span class="n">gFacetNormal</span> <span class="o">=</span> <span class="p">(</span><span class="n">objectToEyeMatrix</span><span class="o">*</span><span class="k">vec4</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">cross</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">)),</span> <span class="mo">0</span><span class="p">)).</span><span class="n">xyz</span><span class="p">;</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mo">0</span><span class="p">);</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>gFacetNormal = (objectToEyeMatrix*vec4(normalize(cross(C, B)), 0)).xyz;</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="n">emit</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="cp">#else  // GEOMETRY_OUT_LINE</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mo">0</span><span class="p">);</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mo">0</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="cp">#endif // PRIM_QUAD</span>
+
+<span class="cp">#ifdef PRIM_TRI</span>
+    <span class="k">vec3</span> <span class="n">A</span> <span class="o">=</span> <span class="n">vPosition</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">vPosition</span><span class="p">[</span><span class="mo">0</span><span class="p">];</span>
+    <span class="k">vec3</span> <span class="n">B</span> <span class="o">=</span> <span class="n">vPosition</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">vPosition</span><span class="p">[</span><span class="mo">0</span><span class="p">];</span>
+    <span class="n">gFacetNormal</span> <span class="o">=</span> <span class="p">(</span><span class="n">objectToEyeMatrix</span><span class="o">*</span><span class="k">vec4</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">cross</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">)),</span> <span class="mo">0</span><span class="p">)).</span><span class="n">xyz</span><span class="p">;</span>
+
+    <span class="n">emit</span><span class="p">(</span><span class="mo">0</span><span class="p">);</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="cp">#ifdef GEOMETRY_OUT_LINE</span>
+    <span class="n">emit</span><span class="p">(</span><span class="mo">0</span><span class="p">);</span>
+<span class="cp">#endif //GEOMETRY_OUT_LINE</span>
+<span class="cp">#endif // PRIM_TRI</span>
+
+    <span class="n">EndPrimitive</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="cp">#endif</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <hr />
+
+<h2>Fragment Shader</h2>             </td>             <td class="code">               <div class="highlight"><pre><span class="cp">#ifdef FRAGMENT_SHADER</span>
+
+<span class="n">flat</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">gFacetNormal</span><span class="p">;</span>
+<span class="k">in</span> <span class="k">vec3</span> <span class="n">Neye</span><span class="p">;</span>
+<span class="k">in</span> <span class="k">vec3</span> <span class="n">Peye</span><span class="p">;</span>
+<span class="k">in</span> <span class="k">vec4</span> <span class="n">Cout</span><span class="p">;</span>
+
+<span class="cp">#define NUM_LIGHTS 2</span>
+
+<span class="k">struct</span> <span class="n">LightSource</span> <span class="p">{</span>
+    <span class="k">vec4</span> <span class="n">position</span><span class="p">;</span>
+    <span class="k">vec4</span> <span class="n">ambient</span><span class="p">;</span>
+    <span class="k">vec4</span> <span class="n">diffuse</span><span class="p">;</span>
+    <span class="k">vec4</span> <span class="n">specular</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">uniform</span> <span class="n">LightSource</span> <span class="n">lightSource</span><span class="p">[</span><span class="n">NUM_LIGHTS</span><span class="p">];</span>
+
+<span class="k">vec4</span>
+<span class="n">lighting</span><span class="p">(</span><span class="k">vec3</span> <span class="n">Peye</span><span class="p">,</span> <span class="k">vec3</span> <span class="n">Neye</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">vec4</span> <span class="n">color</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="mo">0</span><span class="p">);</span>
+    <span class="k">vec4</span> <span class="n">material</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="k">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mo">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUM_LIGHTS</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">vec4</span> <span class="n">Plight</span> <span class="o">=</span> <span class="n">lightSource</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">position</span><span class="p">;</span>
+
+        <span class="k">vec3</span> <span class="n">l</span> <span class="o">=</span> <span class="p">(</span><span class="n">Plight</span><span class="p">.</span><span class="n">w</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">)</span>
+                    <span class="o">?</span> <span class="n">normalize</span><span class="p">(</span><span class="n">Plight</span><span class="p">.</span><span class="n">xyz</span><span class="p">)</span> <span class="o">:</span> <span class="n">normalize</span><span class="p">(</span><span class="n">Plight</span><span class="p">.</span><span class="n">xyz</span> <span class="o">-</span> <span class="n">Peye</span><span class="p">);</span>
+
+        <span class="k">vec3</span> <span class="n">n</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">Neye</span><span class="p">);</span>
+        <span class="k">vec3</span> <span class="n">h</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="k">vec3</span><span class="p">(</span><span class="mo">0</span><span class="p">,</span><span class="mo">0</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>    <span class="c1">// directional viewer</span>
+
+        <span class="k">float</span> <span class="n">d</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">));</span>
+        <span class="k">float</span> <span class="n">s</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">h</span><span class="p">)),</span> <span class="mf">500.0</span><span class="n">f</span><span class="p">);</span>
+
+        <span class="n">color</span> <span class="o">+=</span> <span class="n">lightSource</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">ambient</span> <span class="o">*</span> <span class="n">material</span>
+            <span class="o">+</span> <span class="n">d</span> <span class="o">*</span> <span class="n">lightSource</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">diffuse</span> <span class="o">*</span> <span class="n">material</span>
+            <span class="o">+</span> <span class="n">s</span> <span class="o">*</span> <span class="n">lightSource</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">specular</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">color</span><span class="p">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">color</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cp">#ifdef GEOMETRY_OUT_LINE</span>
+<span class="k">uniform</span> <span class="k">vec4</span> <span class="n">fragColor</span><span class="p">;</span>
+<span class="k">void</span>
+<span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">gl_FragColor</span> <span class="o">=</span> <span class="n">fragColor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cp">#else</span>
+
+<span class="k">void</span>
+<span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">vec3</span> <span class="n">N</span> <span class="o">=</span> <span class="p">(</span><span class="n">gl_FrontFacing</span> <span class="o">?</span> <span class="n">gFacetNormal</span> <span class="o">:</span> <span class="o">-</span><span class="n">gFacetNormal</span><span class="p">);</span>
+    <span class="n">gl_FragColor</span> <span class="o">=</span> <span class="n">lighting</span><span class="p">(</span><span class="n">Peye</span><span class="p">,</span> <span class="n">N</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">#endif // GEOMETRY_OUT_LINE</span>
+
+<span class="cp">#endif</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

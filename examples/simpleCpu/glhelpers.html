@@ -1,0 +1,184 @@
+<!DOCTYPE html>  <html> <head>   <title>glhelpers.h</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               glhelpers.h             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>This file contains standard OpenGL API calls that are mostly uninteresting if
+you are purely trying to learn OSD. The following operations are implemented
+here:</p>
+
+<ul>
+<li>First time OpenGL state initialization</li>
+<li>Compile vertex and fragment shaders</li>
+<li>Link shaders into a program</li>
+<li>Per-frame drawing state setup</li>
+</ul>             </td>             <td class="code">               <div class="highlight"><pre><span class="cp">#pragma once</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>OS Compatibility</h3>
+
+<p>The following is to ensure the example runs on Linux, Windows and OS X</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="cp">#if defined(__APPLE__)</span>
+    <span class="cp">#include &lt;GLUT/glut.h&gt;</span>
+<span class="cp">#else</span>
+    <span class="cp">#include &lt;stdlib.h&gt;</span>
+    <span class="cp">#include &lt;GL/glew.h&gt;</span>
+    <span class="cp">#include &lt;GL/glut.h&gt;</span>
+<span class="cp">#endif</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Microsoft uses a slightly different snprintf declaration, which we hide
+here by aliasing it as snprintf</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="cp">#if _MSC_VER</span>
+    <span class="cp">#define snprintf _snprintf</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#define drawString(x, y, ...)               \</span>
+<span class="cp">    { char line[1024]; \</span>
+<span class="cp">      snprintf(line, 1024, __VA_ARGS__); \</span>
+<span class="cp">      char *p = line; \</span>
+<span class="cp">      glWindowPos2i(x, y); \</span>
+<span class="cp">      while(*p) { glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *p++); } }</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>These are standard OpenGL shader program handles. One for wire frame and one
+for shaded rendering</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="n">GLuint</span> <span class="n">g_quadLineProgram</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">GLuint</span> <span class="n">g_quadFillProgram</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>To avoid reading the shader source from a file, we include it here as a string
+see <a href="shader.html">shader.glsl</a>.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">shaderSource</span> <span class="o">=</span>
+<span class="cp">#include &quot;shader.inc&quot;</span>
+<span class="p">;</span>
+
+<span class="kt">void</span>
+<span class="nf">bindProgram</span><span class="p">(</span><span class="n">GLuint</span> <span class="n">program</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">glUseProgram</span><span class="p">(</span><span class="n">program</span><span class="p">);</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>shader uniform setting</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="n">GLint</span> <span class="n">position</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;lightSource[0].position&quot;</span><span class="p">);</span>
+    <span class="n">GLint</span> <span class="n">ambient</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;lightSource[0].ambient&quot;</span><span class="p">);</span>
+    <span class="n">GLint</span> <span class="n">diffuse</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;lightSource[0].diffuse&quot;</span><span class="p">);</span>
+    <span class="n">GLint</span> <span class="n">specular</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;lightSource[0].specular&quot;</span><span class="p">);</span>
+    <span class="n">GLint</span> <span class="n">position1</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;lightSource[1].position&quot;</span><span class="p">);</span>
+    <span class="n">GLint</span> <span class="n">ambient1</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;lightSource[1].ambient&quot;</span><span class="p">);</span>
+    <span class="n">GLint</span> <span class="n">diffuse1</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;lightSource[1].diffuse&quot;</span><span class="p">);</span>
+    <span class="n">GLint</span> <span class="n">specular1</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;lightSource[1].specular&quot;</span><span class="p">);</span>
+    
+    <span class="n">glProgramUniform4f</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">);</span>
+    <span class="n">glProgramUniform4f</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">ambient</span><span class="p">,</span> <span class="mf">0.1f</span><span class="p">,</span> <span class="mf">0.1f</span><span class="p">,</span> <span class="mf">0.1f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+    <span class="n">glProgramUniform4f</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">diffuse</span><span class="p">,</span> <span class="mf">0.7f</span><span class="p">,</span> <span class="mf">0.7f</span><span class="p">,</span> <span class="mf">0.7f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+    <span class="n">glProgramUniform4f</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">specular</span><span class="p">,</span> <span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.8f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+    
+    <span class="n">glProgramUniform4f</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">position1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.4f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">);</span>
+    <span class="n">glProgramUniform4f</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">ambient1</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+    <span class="n">glProgramUniform4f</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">diffuse1</span><span class="p">,</span> <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+    <span class="n">glProgramUniform4f</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">specular1</span><span class="p">,</span> <span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.8f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+
+    <span class="n">GLint</span> <span class="n">otcMatrix</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;objectToClipMatrix&quot;</span><span class="p">);</span>
+    <span class="n">GLint</span> <span class="n">oteMatrix</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;objectToEyeMatrix&quot;</span><span class="p">);</span>
+    <span class="n">GLfloat</span> <span class="n">modelView</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">mvp</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+    <span class="n">glGetFloatv</span><span class="p">(</span><span class="n">GL_MODELVIEW_MATRIX</span><span class="p">,</span> <span class="n">modelView</span><span class="p">);</span>
+    <span class="n">glGetFloatv</span><span class="p">(</span><span class="n">GL_PROJECTION_MATRIX</span><span class="p">,</span> <span class="n">proj</span><span class="p">);</span>
+    <span class="n">multMatrix</span><span class="p">(</span><span class="n">mvp</span><span class="p">,</span> <span class="n">modelView</span><span class="p">,</span> <span class="n">proj</span><span class="p">);</span>
+    <span class="n">glProgramUniformMatrix4fv</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">otcMatrix</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="n">mvp</span><span class="p">);</span>
+    <span class="n">glProgramUniformMatrix4fv</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">oteMatrix</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="n">modelView</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">GLuint</span> <span class="nf">compileShader</span><span class="p">(</span><span class="n">GLenum</span> <span class="n">shaderType</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">section</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">define</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">sources</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="kt">char</span> <span class="n">sdefine</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+    <span class="n">sprintf</span><span class="p">(</span><span class="n">sdefine</span><span class="p">,</span> <span class="s">&quot;#define %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">section</span><span class="p">);</span>
+
+    <span class="n">sources</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdefine</span><span class="p">;</span>
+    <span class="n">sources</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">define</span><span class="p">;</span>
+    <span class="n">sources</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">shaderSource</span><span class="p">;</span>
+
+    <span class="n">GLuint</span> <span class="n">shader</span> <span class="o">=</span> <span class="n">glCreateShader</span><span class="p">(</span><span class="n">shaderType</span><span class="p">);</span>
+    <span class="n">glShaderSource</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">glCompileShader</span><span class="p">(</span><span class="n">shader</span><span class="p">);</span>
+
+    <span class="n">GLint</span> <span class="n">status</span><span class="p">;</span>
+    <span class="n">glGetShaderiv</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">GL_COMPILE_STATUS</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">status</span> <span class="o">==</span> <span class="n">GL_FALSE</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">GLchar</span> <span class="n">emsg</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+        <span class="n">glGetShaderInfoLog</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">emsg</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">emsg</span><span class="p">);</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Error compiling GLSL shader (%s): %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">emsg</span> <span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">shader</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">GLuint</span> <span class="nf">linkProgram</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">define</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">GLuint</span> <span class="n">vertexShader</span> <span class="o">=</span> <span class="n">compileShader</span><span class="p">(</span><span class="n">GL_VERTEX_SHADER</span><span class="p">,</span> <span class="s">&quot;VERTEX_SHADER&quot;</span><span class="p">,</span> <span class="n">define</span><span class="p">);</span>
+    <span class="n">GLuint</span> <span class="n">geometryShader</span> <span class="o">=</span> <span class="n">compileShader</span><span class="p">(</span><span class="n">GL_GEOMETRY_SHADER</span><span class="p">,</span> <span class="s">&quot;GEOMETRY_SHADER&quot;</span><span class="p">,</span> <span class="n">define</span><span class="p">);</span>
+    <span class="n">GLuint</span> <span class="n">fragmentShader</span> <span class="o">=</span> <span class="n">compileShader</span><span class="p">(</span><span class="n">GL_FRAGMENT_SHADER</span><span class="p">,</span> <span class="s">&quot;FRAGMENT_SHADER&quot;</span><span class="p">,</span> <span class="n">define</span><span class="p">);</span>
+
+    <span class="n">GLuint</span> <span class="n">program</span> <span class="o">=</span> <span class="n">glCreateProgram</span><span class="p">();</span>
+    <span class="n">glAttachShader</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">vertexShader</span><span class="p">);</span>
+    <span class="n">glAttachShader</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">geometryShader</span><span class="p">);</span>
+    <span class="n">glAttachShader</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">fragmentShader</span><span class="p">);</span>
+
+    <span class="n">glBindAttribLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;position&quot;</span><span class="p">);</span>
+    <span class="n">glBindAttribLocation</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;normal&quot;</span><span class="p">);</span>
+
+    <span class="n">glLinkProgram</span><span class="p">(</span><span class="n">program</span><span class="p">);</span>
+
+    <span class="n">glDeleteShader</span><span class="p">(</span><span class="n">vertexShader</span><span class="p">);</span>
+    <span class="n">glDeleteShader</span><span class="p">(</span><span class="n">geometryShader</span><span class="p">);</span>
+    <span class="n">glDeleteShader</span><span class="p">(</span><span class="n">fragmentShader</span><span class="p">);</span>
+
+    <span class="n">GLint</span> <span class="n">status</span><span class="p">;</span>
+    <span class="n">glGetProgramiv</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">GL_LINK_STATUS</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span> <span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">status</span> <span class="o">==</span> <span class="n">GL_FALSE</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">GLchar</span> <span class="n">emsg</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+        <span class="n">glGetProgramInfoLog</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">emsg</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">emsg</span><span class="p">);</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Error linking GLSL program : %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">emsg</span> <span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">program</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span>
+<span class="nf">initGL</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">glClearColor</span><span class="p">(</span><span class="mf">0.1f</span><span class="p">,</span> <span class="mf">0.1f</span><span class="p">,</span> <span class="mf">0.1f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+    <span class="n">glEnable</span><span class="p">(</span><span class="n">GL_LIGHT0</span><span class="p">);</span>
+    <span class="n">glColor3f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">glEnable</span><span class="p">(</span><span class="n">GL_DEPTH_TEST</span><span class="p">);</span>
+    <span class="n">glDepthFunc</span><span class="p">(</span><span class="n">GL_LEQUAL</span><span class="p">);</span>
+
+    <span class="n">GLfloat</span> <span class="n">color</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>
+    <span class="n">GLfloat</span> <span class="n">position</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>
+    <span class="n">GLfloat</span> <span class="n">ambient</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">};</span>
+    <span class="n">GLfloat</span> <span class="n">diffuse</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">};</span>
+    <span class="n">GLfloat</span> <span class="n">shininess</span> <span class="o">=</span> <span class="mf">25.0</span><span class="p">;</span>
+
+    <span class="n">glMaterialfv</span><span class="p">(</span><span class="n">GL_FRONT_AND_BACK</span><span class="p">,</span> <span class="n">GL_AMBIENT</span><span class="p">,</span> <span class="n">color</span><span class="p">);</span>
+    <span class="n">glMaterialfv</span><span class="p">(</span><span class="n">GL_FRONT_AND_BACK</span><span class="p">,</span> <span class="n">GL_DIFFUSE</span><span class="p">,</span> <span class="n">color</span><span class="p">);</span>
+    <span class="n">glMaterialfv</span><span class="p">(</span><span class="n">GL_FRONT_AND_BACK</span><span class="p">,</span> <span class="n">GL_SPECULAR</span><span class="p">,</span> <span class="n">color</span><span class="p">);</span>
+    <span class="n">glMaterialfv</span><span class="p">(</span><span class="n">GL_FRONT_AND_BACK</span><span class="p">,</span> <span class="n">GL_SHININESS</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">shininess</span><span class="p">);</span>
+    <span class="n">glLightfv</span><span class="p">(</span><span class="n">GL_LIGHT0</span><span class="p">,</span> <span class="n">GL_POSITION</span><span class="p">,</span> <span class="n">position</span><span class="p">);</span>
+    <span class="n">glLightfv</span><span class="p">(</span><span class="n">GL_LIGHT0</span><span class="p">,</span> <span class="n">GL_AMBIENT</span><span class="p">,</span> <span class="n">ambient</span><span class="p">);</span>
+    <span class="n">glLightfv</span><span class="p">(</span><span class="n">GL_LIGHT0</span><span class="p">,</span> <span class="n">GL_DIFFUSE</span><span class="p">,</span> <span class="n">diffuse</span><span class="p">);</span>
+
+    <span class="n">g_quadFillProgram</span> <span class="o">=</span> <span class="n">linkProgram</span><span class="p">(</span><span class="s">&quot;#define PRIM_QUAD</span><span class="se">\n</span><span class="s">#define GEOMETRY_OUT_FILL</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">g_quadLineProgram</span> <span class="o">=</span> <span class="n">linkProgram</span><span class="p">(</span><span class="s">&quot;#define PRIM_QUAD</span><span class="se">\n</span><span class="s">#define GEOMETRY_OUT_LINE</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span>
+<span class="nf">setupForDisplay</span><span class="p">(</span><span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="kt">int</span> <span class="n">height</span><span class="p">,</span> <span class="kt">float</span> <span class="n">size</span><span class="p">,</span> <span class="kt">float</span><span class="o">*</span> <span class="n">center</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">glClear</span><span class="p">(</span><span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">);</span>
+
+    <span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">);</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_PROJECTION</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_MODELVIEW</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+
+    <span class="n">glDisable</span><span class="p">(</span><span class="n">GL_LIGHTING</span><span class="p">);</span>
+    <span class="n">glColor3f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">glBegin</span><span class="p">(</span><span class="n">GL_QUADS</span><span class="p">);</span>
+    <span class="n">glColor3f</span><span class="p">(</span><span class="mf">0.5f</span><span class="p">,</span> <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">0.5f</span><span class="p">);</span>
+    <span class="n">glVertex3f</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">glVertex3f</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">glColor3f</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">glVertex3f</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">glVertex3f</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">glEnd</span><span class="p">();</span>
+
+    <span class="kt">double</span> <span class="n">aspect</span> <span class="o">=</span> <span class="n">width</span><span class="o">/</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">height</span><span class="p">;</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_PROJECTION</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+    <span class="n">gluPerspective</span><span class="p">(</span><span class="mf">45.0</span><span class="p">,</span> <span class="n">aspect</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">);</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_MODELVIEW</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+    <span class="n">glTranslatef</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">size</span><span class="p">);</span>
+    <span class="n">glTranslatef</span><span class="p">(</span><span class="o">-</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="n">glRotatef</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// z-up model</span>
+
+<span class="p">}</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
