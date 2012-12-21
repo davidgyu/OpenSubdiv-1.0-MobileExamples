@@ -1,0 +1,606 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DD4B33491683E63F0038837E /* libosdCPU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4B33481683E63F0038837E /* libosdCPU.a */; };
+		DD4B334B1683E6410038837E /* libosdGPU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4B334A1683E6410038837E /* libosdGPU.a */; };
+		DD96786E168393470008D05F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD96786D168393470008D05F /* UIKit.framework */; };
+		DD967870168393470008D05F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD96786F168393470008D05F /* Foundation.framework */; };
+		DD967872168393470008D05F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD967871168393470008D05F /* CoreGraphics.framework */; };
+		DD967874168393470008D05F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD967873168393470008D05F /* GLKit.framework */; };
+		DD967876168393470008D05F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD967875168393470008D05F /* OpenGLES.framework */; };
+		DD96787C168393470008D05F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD96787A168393470008D05F /* InfoPlist.strings */; };
+		DD96787E168393470008D05F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD96787D168393470008D05F /* main.m */; };
+		DD967882168393470008D05F /* OsdViewerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD967881168393470008D05F /* OsdViewerAppDelegate.m */; };
+		DD967884168393470008D05F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DD967883168393470008D05F /* Default.png */; };
+		DD967886168393470008D05F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD967885168393470008D05F /* Default@2x.png */; };
+		DD967888168393470008D05F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD967887168393470008D05F /* Default-568h@2x.png */; };
+		DD96788B168393470008D05F /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD967889168393470008D05F /* MainStoryboard_iPhone.storyboard */; };
+		DD96788E168393470008D05F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD96788C168393470008D05F /* MainStoryboard_iPad.storyboard */; };
+		DD967890168393470008D05F /* HullShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DD96788F168393470008D05F /* HullShader.fsh */; };
+		DD967892168393470008D05F /* HullShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DD967891168393470008D05F /* HullShader.vsh */; };
+		DD967895168393470008D05F /* OsdViewerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DD967894168393470008D05F /* OsdViewerViewController.mm */; };
+		DD96789D168393470008D05F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD96789C168393470008D05F /* SenTestingKit.framework */; };
+		DD96789E168393470008D05F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD96786D168393470008D05F /* UIKit.framework */; };
+		DD96789F168393470008D05F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD96786F168393470008D05F /* Foundation.framework */; };
+		DD9678A7168393470008D05F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD9678A5168393470008D05F /* InfoPlist.strings */; };
+		DD9678AA168393470008D05F /* OpenSubdivViewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9678A9168393470008D05F /* OpenSubdivViewerTests.m */; };
+		DD9678B91683996D0008D05F /* MeshShader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = DD9678B71683996D0008D05F /* MeshShader.fsh */; };
+		DD9678BA1683996D0008D05F /* MeshShader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = DD9678B81683996D0008D05F /* MeshShader.vsh */; };
+		DD9678BB168399A90008D05F /* MeshShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DD9678B71683996D0008D05F /* MeshShader.fsh */; };
+		DD9678BC168399A90008D05F /* MeshShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DD9678B81683996D0008D05F /* MeshShader.vsh */; };
+		DD9678BE1683BFE80008D05F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = DD9678BD1683BFE80008D05F /* Icon-72.png */; };
+		DD9678C01683BFEB0008D05F /* Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = DD9678BF1683BFEB0008D05F /* Icon-144.png */; };
+		DD9678C21683BFF50008D05F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DD9678C11683BFF50008D05F /* Icon.png */; };
+		DD9678C41683BFF90008D05F /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = DD9678C31683BFF90008D05F /* Icon-114.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DD7BF9831684015E0072BFA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD4B33361683E50C0038837E /* OpenSubdiv.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0B7F2C272EB34CEDAB8ED742;
+			remoteInfo = osd_static_cpu;
+		};
+		DD7BF9851684015E0072BFA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD4B33361683E50C0038837E /* OpenSubdiv.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 91EAC8955EE44EA08FC3318E;
+			remoteInfo = osd_static_gpu;
+		};
+		DD7BF9871684015E0072BFA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD4B33361683E50C0038837E /* OpenSubdiv.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4A9B3C66A8F8471E8E6F604B;
+			remoteInfo = example_mutex;
+		};
+		DD9678A0168393470008D05F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD967860168393470008D05F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD967868168393470008D05F;
+			remoteInfo = OpenSubdivViewer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DD4B33361683E50C0038837E /* OpenSubdiv.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OpenSubdiv.xcodeproj; path = "../../../../../Users/dyu1/src/OpenSubdiv.apps/build-ios/OpenSubdiv.xcodeproj"; sourceTree = OpenSubdiv; };
+		DD4B33481683E63F0038837E /* libosdCPU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosdCPU.a; path = "../../../../build-ios/lib/Debug/libosdCPU.a"; sourceTree = "<group>"; };
+		DD4B334A1683E6410038837E /* libosdGPU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosdGPU.a; path = "../../../../build-ios/lib/Debug/libosdGPU.a"; sourceTree = "<group>"; };
+		DD967869168393470008D05F /* OpenSubdivViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenSubdivViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD96786D168393470008D05F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DD96786F168393470008D05F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DD967871168393470008D05F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DD967873168393470008D05F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		DD967875168393470008D05F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		DD967879168393470008D05F /* OpenSubdivViewer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenSubdivViewer-Info.plist"; sourceTree = "<group>"; };
+		DD96787B168393470008D05F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD96787D168393470008D05F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DD96787F168393470008D05F /* OpenSubdivViewer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenSubdivViewer-Prefix.pch"; sourceTree = "<group>"; };
+		DD967880168393470008D05F /* OsdViewerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OsdViewerAppDelegate.h; sourceTree = "<group>"; };
+		DD967881168393470008D05F /* OsdViewerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OsdViewerAppDelegate.m; sourceTree = "<group>"; };
+		DD967883168393470008D05F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		DD967885168393470008D05F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		DD967887168393470008D05F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		DD96788A168393470008D05F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		DD96788D168393470008D05F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		DD96788F168393470008D05F /* HullShader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = HullShader.fsh; path = Shaders/HullShader.fsh; sourceTree = "<group>"; };
+		DD967891168393470008D05F /* HullShader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = HullShader.vsh; path = Shaders/HullShader.vsh; sourceTree = "<group>"; };
+		DD967893168393470008D05F /* OsdViewerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OsdViewerViewController.h; sourceTree = "<group>"; };
+		DD967894168393470008D05F /* OsdViewerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OsdViewerViewController.mm; sourceTree = "<group>"; };
+		DD96789B168393470008D05F /* OpenSubdivViewerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenSubdivViewerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD96789C168393470008D05F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		DD9678A4168393470008D05F /* OpenSubdivViewerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenSubdivViewerTests-Info.plist"; sourceTree = "<group>"; };
+		DD9678A6168393470008D05F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD9678A8168393470008D05F /* OpenSubdivViewerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenSubdivViewerTests.h; sourceTree = "<group>"; };
+		DD9678A9168393470008D05F /* OpenSubdivViewerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenSubdivViewerTests.m; sourceTree = "<group>"; };
+		DD9678B71683996D0008D05F /* MeshShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = MeshShader.fsh; path = Shaders/MeshShader.fsh; sourceTree = "<group>"; };
+		DD9678B81683996D0008D05F /* MeshShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = MeshShader.vsh; path = Shaders/MeshShader.vsh; sourceTree = "<group>"; };
+		DD9678BD1683BFE80008D05F /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../Icon-72.png"; sourceTree = "<group>"; };
+		DD9678BF1683BFEB0008D05F /* Icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-144.png"; path = "../Icon-144.png"; sourceTree = "<group>"; };
+		DD9678C11683BFF50008D05F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		DD9678C31683BFF90008D05F /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-114.png"; path = "../Icon-114.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD967866168393470008D05F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD96786E168393470008D05F /* UIKit.framework in Frameworks */,
+				DD967870168393470008D05F /* Foundation.framework in Frameworks */,
+				DD967872168393470008D05F /* CoreGraphics.framework in Frameworks */,
+				DD967874168393470008D05F /* GLKit.framework in Frameworks */,
+				DD967876168393470008D05F /* OpenGLES.framework in Frameworks */,
+				DD4B33491683E63F0038837E /* libosdCPU.a in Frameworks */,
+				DD4B334B1683E6410038837E /* libosdGPU.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD967897168393470008D05F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD96789D168393470008D05F /* SenTestingKit.framework in Frameworks */,
+				DD96789E168393470008D05F /* UIKit.framework in Frameworks */,
+				DD96789F168393470008D05F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DD7BF97C1684015E0072BFA6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD7BF9841684015E0072BFA6 /* libosdCPU.a */,
+				DD7BF9861684015E0072BFA6 /* libosdGPU.a */,
+				DD7BF9881684015E0072BFA6 /* libexample_mutex.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD96785E168393470008D05F = {
+			isa = PBXGroup;
+			children = (
+				DD4B334A1683E6410038837E /* libosdGPU.a */,
+				DD4B33481683E63F0038837E /* libosdCPU.a */,
+				DD4B33361683E50C0038837E /* OpenSubdiv.xcodeproj */,
+				DD967877168393470008D05F /* OpenSubdivViewer */,
+				DD9678A2168393470008D05F /* OpenSubdivViewerTests */,
+				DD96786C168393470008D05F /* Frameworks */,
+				DD96786A168393470008D05F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DD96786A168393470008D05F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD967869168393470008D05F /* OpenSubdivViewer.app */,
+				DD96789B168393470008D05F /* OpenSubdivViewerTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD96786C168393470008D05F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD96786D168393470008D05F /* UIKit.framework */,
+				DD96786F168393470008D05F /* Foundation.framework */,
+				DD967871168393470008D05F /* CoreGraphics.framework */,
+				DD967873168393470008D05F /* GLKit.framework */,
+				DD967875168393470008D05F /* OpenGLES.framework */,
+				DD96789C168393470008D05F /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD967877168393470008D05F /* OpenSubdivViewer */ = {
+			isa = PBXGroup;
+			children = (
+				DD9678B71683996D0008D05F /* MeshShader.fsh */,
+				DD9678B81683996D0008D05F /* MeshShader.vsh */,
+				DD967880168393470008D05F /* OsdViewerAppDelegate.h */,
+				DD967881168393470008D05F /* OsdViewerAppDelegate.m */,
+				DD967889168393470008D05F /* MainStoryboard_iPhone.storyboard */,
+				DD96788C168393470008D05F /* MainStoryboard_iPad.storyboard */,
+				DD96788F168393470008D05F /* HullShader.fsh */,
+				DD967891168393470008D05F /* HullShader.vsh */,
+				DD967893168393470008D05F /* OsdViewerViewController.h */,
+				DD967894168393470008D05F /* OsdViewerViewController.mm */,
+				DD967878168393470008D05F /* Supporting Files */,
+			);
+			path = OpenSubdivViewer;
+			sourceTree = "<group>";
+		};
+		DD967878168393470008D05F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DD9678C31683BFF90008D05F /* Icon-114.png */,
+				DD9678C11683BFF50008D05F /* Icon.png */,
+				DD9678BF1683BFEB0008D05F /* Icon-144.png */,
+				DD9678BD1683BFE80008D05F /* Icon-72.png */,
+				DD967879168393470008D05F /* OpenSubdivViewer-Info.plist */,
+				DD96787A168393470008D05F /* InfoPlist.strings */,
+				DD96787D168393470008D05F /* main.m */,
+				DD96787F168393470008D05F /* OpenSubdivViewer-Prefix.pch */,
+				DD967883168393470008D05F /* Default.png */,
+				DD967885168393470008D05F /* Default@2x.png */,
+				DD967887168393470008D05F /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DD9678A2168393470008D05F /* OpenSubdivViewerTests */ = {
+			isa = PBXGroup;
+			children = (
+				DD9678A8168393470008D05F /* OpenSubdivViewerTests.h */,
+				DD9678A9168393470008D05F /* OpenSubdivViewerTests.m */,
+				DD9678A3168393470008D05F /* Supporting Files */,
+			);
+			path = OpenSubdivViewerTests;
+			sourceTree = "<group>";
+		};
+		DD9678A3168393470008D05F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DD9678A4168393470008D05F /* OpenSubdivViewerTests-Info.plist */,
+				DD9678A5168393470008D05F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DD967868168393470008D05F /* OpenSubdivViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD9678AD168393470008D05F /* Build configuration list for PBXNativeTarget "OpenSubdivViewer" */;
+			buildPhases = (
+				DD967865168393470008D05F /* Sources */,
+				DD967866168393470008D05F /* Frameworks */,
+				DD967867168393470008D05F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenSubdivViewer;
+			productName = OpenSubdivViewer;
+			productReference = DD967869168393470008D05F /* OpenSubdivViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DD96789A168393470008D05F /* OpenSubdivViewerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD9678B0168393470008D05F /* Build configuration list for PBXNativeTarget "OpenSubdivViewerTests" */;
+			buildPhases = (
+				DD967896168393470008D05F /* Sources */,
+				DD967897168393470008D05F /* Frameworks */,
+				DD967898168393470008D05F /* Resources */,
+				DD967899168393470008D05F /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DD9678A1168393470008D05F /* PBXTargetDependency */,
+			);
+			name = OpenSubdivViewerTests;
+			productName = OpenSubdivViewerTests;
+			productReference = DD96789B168393470008D05F /* OpenSubdivViewerTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DD967860168393470008D05F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = OsdViewer;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Pixar Animation Studios";
+			};
+			buildConfigurationList = DD967863168393470008D05F /* Build configuration list for PBXProject "OpenSubdivViewer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DD96785E168393470008D05F;
+			productRefGroup = DD96786A168393470008D05F /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = DD7BF97C1684015E0072BFA6 /* Products */;
+					ProjectRef = DD4B33361683E50C0038837E /* OpenSubdiv.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				DD967868168393470008D05F /* OpenSubdivViewer */,
+				DD96789A168393470008D05F /* OpenSubdivViewerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		DD7BF9841684015E0072BFA6 /* libosdCPU.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libosdCPU.a;
+			remoteRef = DD7BF9831684015E0072BFA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DD7BF9861684015E0072BFA6 /* libosdGPU.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libosdGPU.a;
+			remoteRef = DD7BF9851684015E0072BFA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DD7BF9881684015E0072BFA6 /* libexample_mutex.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libexample_mutex.a;
+			remoteRef = DD7BF9871684015E0072BFA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD967867168393470008D05F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9678BB168399A90008D05F /* MeshShader.fsh in Resources */,
+				DD9678BC168399A90008D05F /* MeshShader.vsh in Resources */,
+				DD96787C168393470008D05F /* InfoPlist.strings in Resources */,
+				DD967884168393470008D05F /* Default.png in Resources */,
+				DD967886168393470008D05F /* Default@2x.png in Resources */,
+				DD967888168393470008D05F /* Default-568h@2x.png in Resources */,
+				DD96788B168393470008D05F /* MainStoryboard_iPhone.storyboard in Resources */,
+				DD96788E168393470008D05F /* MainStoryboard_iPad.storyboard in Resources */,
+				DD967890168393470008D05F /* HullShader.fsh in Resources */,
+				DD967892168393470008D05F /* HullShader.vsh in Resources */,
+				DD9678BE1683BFE80008D05F /* Icon-72.png in Resources */,
+				DD9678C01683BFEB0008D05F /* Icon-144.png in Resources */,
+				DD9678C21683BFF50008D05F /* Icon.png in Resources */,
+				DD9678C41683BFF90008D05F /* Icon-114.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD967898168393470008D05F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9678A7168393470008D05F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DD967899168393470008D05F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DD967865168393470008D05F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD96787E168393470008D05F /* main.m in Sources */,
+				DD967882168393470008D05F /* OsdViewerAppDelegate.m in Sources */,
+				DD967895168393470008D05F /* OsdViewerViewController.mm in Sources */,
+				DD9678B91683996D0008D05F /* MeshShader.fsh in Sources */,
+				DD9678BA1683996D0008D05F /* MeshShader.vsh in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD967896168393470008D05F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9678AA168393470008D05F /* OpenSubdivViewerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DD9678A1168393470008D05F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD967868168393470008D05F /* OpenSubdivViewer */;
+			targetProxy = DD9678A0168393470008D05F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DD96787A168393470008D05F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD96787B168393470008D05F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DD967889168393470008D05F /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD96788A168393470008D05F /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		DD96788C168393470008D05F /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD96788D168393470008D05F /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		DD9678A5168393470008D05F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD9678A6168393470008D05F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DD9678AB168393470008D05F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DD9678AC168393470008D05F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DD9678AE168393470008D05F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OpenSubdivViewer/OpenSubdivViewer-Prefix.pch";
+				HEADER_SEARCH_PATHS = "/Users/dyu1/src/OpenSubdiv.apps/build-ios/include";
+				INFOPLIST_FILE = "OpenSubdivViewer/OpenSubdivViewer-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/dyu1/src/OpenSubdiv.apps/build-ios/lib",
+					"\"$(SRCROOT)/../../../../build-ios/lib/Debug\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DD9678AF168393470008D05F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OpenSubdivViewer/OpenSubdivViewer-Prefix.pch";
+				HEADER_SEARCH_PATHS = "/Users/dyu1/src/OpenSubdiv.apps/build-ios/include";
+				INFOPLIST_FILE = "OpenSubdivViewer/OpenSubdivViewer-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/dyu1/src/OpenSubdiv.apps/build-ios/lib",
+					"\"$(SRCROOT)/../../../../build-ios/lib/Debug\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		DD9678B1168393470008D05F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OpenSubdivViewer.app/OpenSubdivViewer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OpenSubdivViewer/OpenSubdivViewer-Prefix.pch";
+				INFOPLIST_FILE = "OpenSubdivViewerTests/OpenSubdivViewerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		DD9678B2168393470008D05F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OpenSubdivViewer.app/OpenSubdivViewer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OpenSubdivViewer/OpenSubdivViewer-Prefix.pch";
+				INFOPLIST_FILE = "OpenSubdivViewerTests/OpenSubdivViewerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DD967863168393470008D05F /* Build configuration list for PBXProject "OpenSubdivViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD9678AB168393470008D05F /* Debug */,
+				DD9678AC168393470008D05F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD9678AD168393470008D05F /* Build configuration list for PBXNativeTarget "OpenSubdivViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD9678AE168393470008D05F /* Debug */,
+				DD9678AF168393470008D05F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD9678B0168393470008D05F /* Build configuration list for PBXNativeTarget "OpenSubdivViewerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD9678B1168393470008D05F /* Debug */,
+				DD9678B2168393470008D05F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DD967860168393470008D05F /* Project object */;
+}
